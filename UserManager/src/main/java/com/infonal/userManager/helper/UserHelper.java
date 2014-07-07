@@ -4,6 +4,9 @@ package com.infonal.userManager.helper;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
 import com.infonal.userManager.model.User;
 
 public class UserHelper {
@@ -35,6 +38,16 @@ public class UserHelper {
 	{
 		MongoOperations mongoOperation = MongoDBHelper.getMongoOperation();
 	    return mongoOperation.findAll(User.class);
+	}
+	
+	/*
+	 * Returns one user by id from database
+	 */
+	public static User getUser(String id)
+	{
+		MongoOperations mongoOperation = MongoDBHelper.getMongoOperation();
+		Query query = Query.query(new Criteria("id").is(id));
+	    return mongoOperation.findOne(query, User.class);
 	}
 	
 	/*
