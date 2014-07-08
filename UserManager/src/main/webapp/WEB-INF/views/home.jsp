@@ -42,13 +42,16 @@
 		</c:forEach>
 	</table>
 <!-- List users END -->
-
+		<div class="loading" style="text-align:center;width:100%;z-index:1151;display:none">
+			<img src="/userManager/resources/images/ajax-loader.gif">
+		</div>
 <!-- New user dialog BEGIN -->
 <!-- Button trigger modal -->
-	
-	
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="loading" style="text-align:center;width:100%;z-index:1051;display:none">
+			<img src="/userManager/resources/images/ajax-loader.gif">
+		</div>
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -103,6 +106,7 @@
     			$('#validationText').html("Name, lastname or reCaptcha fields can not be null");
    				return;
    			}
+    		$('.loading').show();
     		$.post("saveUser", { id : $('#userid').val(), name : $('#name').val(), 
     								lastname : $('#lastname').val(), phonenumber : $('#phonenumber').val(),
     								recaptchaResponseField : $('#recaptcha_response_field').val(),
@@ -111,6 +115,7 @@
     							},
     		function (response)
  			{
+				$('.loading').hide();
 				if(response == 'success')
 	   				location.reload();
  			});
@@ -122,8 +127,10 @@
     		{
     			if(result)
     			{
+    				$('.loading').show();
     				$.post("removeUser", { id : id }, function (response)
 		 			{
+    					$('.loading').hide();
 		    			if(response == 'success')
 		    				location.reload();
 		 			});	
